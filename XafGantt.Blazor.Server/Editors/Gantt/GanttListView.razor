@@ -1,0 +1,49 @@
+@using Veto.Core
+@using Veto.Components.Gantt
+@using Veto.Components.Menu
+
+<VetoGantt @ref="chart"
+           TestId="gantt"
+           Items="Items"
+           Editable="Editable"
+           ColorScheme="@(Dark ? VetoColorScheme.Dark : VetoColorScheme.Light)"
+           @bind-View="view"
+           @bind-Scale="scale"
+           Scales="Scales"
+           SelectedId="@SelectedId"
+           SelectedIdChanged="SelectedIdChanged"
+           OnItemChanged="HandleItemChanged"
+           Height="calc(100vh - 15rem)">
+    <ItemContextMenu Context="item">
+        <VetoMenuItem Text="Open" TestId="gantt-open" OnClick="() => OnOpen.InvokeAsync(item.Id)" />
+    </ItemContextMenu>
+</VetoGantt>
+
+@code {
+    // View and scale live here, not in the component model: the chart changes them itself, and a
+    // constant parameter would undo the user's choice on every re-render.
+    private static readonly VetoGanttScale[] Scales = [VetoGanttScale.Day, VetoGanttScale.Week, VetoGanttScale.Month];
+    private VetoGantt chart;
+    private VetoGanttView view = VetoGanttView.Schedule;
+    private VetoGanttScale scale = VetoGanttScale.Day;
+
+    [Parameter] public IReadOnlyList<VetoGanttItem> Items { get; set; } = [];
+    [Parameter] public bool Editable { get; set; }
+    [Parameter] public bool Dark { get; set; }
+    [Parameter] public string SelectedId { get; set; }
+    [Parameter] public EventCallback<string> SelectedIdChanged { get; set; }
+    [Parameter] public EventCallback<VetoGanttChange> OnItemChanged { get; set; }
+    [Parameter] public EventCallback<string> OnOpen { get; set; }
+
+    private async Task HandleItemChanged(VetoGanttChange change) {
+        try {
+            await OnItemChanged.InvokeAsync(change);
+        }
+        finally {
+            // VetoGantt keeps the dragged dates as its own override on top of Items, even without
+            // a PersistKey. Dropping it makes the chart show what the ObjectSpace holds: the new
+            // dates after a commit, the old ones after a rejected change.
+            await chart.ResetAsync();
+        }
+    }
+}
