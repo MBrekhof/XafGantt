@@ -3,6 +3,10 @@
 Proof of concept: the open-source [Veto.Gantt](https://github.com/G-HK/Veto) Blazor component (MIT)
 as a list editor in a DevExpress XAF Blazor Server application. XAF Blazor ships no Gantt editor.
 
+![The Gantt list view in the running XAF app, Fluent light theme](docs/screenshots/gantt-light.png)
+
+![The same view in the Fluent dark theme](docs/screenshots/gantt-dark.png)
+
 What it shows: any business object that implements `IGanttTask` can be displayed as a Gantt chart;
 dragging or arrow-keying a bar changes the dates through the ObjectSpace, with XAF validation and
 security applied. Results and the list of Veto issues: [docs/veto-findings.md](docs/veto-findings.md).
@@ -10,8 +14,10 @@ security applied. Results and the list of Veto issues: [docs/veto-findings.md](d
 ## Stack
 
 XAF 26.1, .NET 10, EF Core 10, SQL Server LocalDB (catalog `XafGantt`), and `Veto.Gantt`
-1.0.8-xafgantt.3: version 1.0.7 plus one fix (a mouse click selects a draggable bar), built from the
-fork [MBrekhof/Veto](https://github.com/MBrekhof/Veto) and committed in `local-packages/`.
+1.0.8-xafgantt.3: version 1.0.7 plus two fixes (a mouse click selects a draggable bar, and the bar
+keeps its width), built from the fork [MBrekhof/Veto](https://github.com/MBrekhof/Veto) and committed
+in `local-packages/`. Both fixes are offered upstream in
+[G-HK/Veto#28](https://github.com/G-HK/Veto/pull/28).
 
 ## Layout
 
@@ -52,3 +58,9 @@ the app. Exit code 0 means passed. Screenshots land in `XafGantt.E2ETests/bin/De
 1. Implement `IGanttTask` explicitly on the entity.
 2. Add a List View for it in the Model Editor with `EditorType` = `GanttListEditor`,
    `DataAccessMode` = `Client`, `AllowEdit` = `True`, and a navigation item.
+
+## License
+
+[MIT](LICENSE). Veto.Gantt is MIT-licensed by its author (G-HK); its licence text is inside the package in
+`local-packages/`. Building and running the app requires a DevExpress licence; no DevExpress code is
+in this repository.
