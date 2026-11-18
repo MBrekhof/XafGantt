@@ -18,7 +18,7 @@ Login `Admin` or `Viewer` (read-only), empty password, DEBUG builds only.
 
 - EF Core only, never XPO. All DevExpress packages on 26.1.
 - `XafGantt.Module` must not reference Veto: the editor works against `IGanttTask`.
-- `Veto.Gantt` is `1.0.8-xafgantt.2`, built from the fork `C:\Projects\Veto`
+- `Veto.Gantt` is `1.0.8-xafgantt.3`, built from the fork `C:\Projects\Veto`
   (github.com/MBrekhof/Veto, branch `fix/click-selects-draggable-bar`, based on the 1.0.7 release
   commit because upstream `dev` is net11.0) and committed in `local-packages/`; `nuget.config` adds
   that folder as a source. To rebuild it after a change in the fork: set `<Version>` in

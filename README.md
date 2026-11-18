@@ -10,7 +10,7 @@ security applied. Results and the list of Veto issues: [docs/veto-findings.md](d
 ## Stack
 
 XAF 26.1, .NET 10, EF Core 10, SQL Server LocalDB (catalog `XafGantt`), and `Veto.Gantt`
-1.0.8-xafgantt.2: version 1.0.7 plus one fix (a mouse click selects a draggable bar), built from the
+1.0.8-xafgantt.3: version 1.0.7 plus one fix (a mouse click selects a draggable bar), built from the
 fork [MBrekhof/Veto](https://github.com/MBrekhof/Veto) and committed in `local-packages/`.
 
 ## Layout

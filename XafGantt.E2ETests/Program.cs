@@ -168,9 +168,12 @@ try
 
     // Veto finding V1: with Veto.Gantt 1.0.7 this click did nothing. Fixed in the fork build.
     var (tStart, tEnd) = Dates("Training");
+    var tWidth = (await BoxOf(page, "Training")).Width;
     await Bar(page, "Training").ClickAsync();
     await PollAsync(async () => await SelectedRow("Training").CountAsync() == 1, "mouse click on a draggable bar selects it");
     Assert(Dates("Training") == (tStart, tEnd), "the click did not move the task");
+    // Veto finding V8: with 1.0.7 a click collapsed the bar to the width of its label.
+    Assert(Math.Abs((await BoxOf(page, "Training")).Width - tWidth) < 1, "the clicked bar kept its width");
 
     await Bar(page, "Validation").FocusAsync();
     await page.Keyboard.PressAsync("Enter");

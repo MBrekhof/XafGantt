@@ -28,10 +28,10 @@ workaround in the wrapper.
 
 **V1. A mouse click does not select a draggable bar.** Bug in 1.0.7, **fixed in the fork**
 (`github.com/MBrekhof/Veto`, branch `fix/click-selects-draggable-bar`): the pointer is now captured
-once it has moved 3 px instead of on the press. Veto's 114 Gantt specs pass with it, plus two new
-ones; this POC runs on that build (`local-packages/Veto.Gantt.1.0.8-xafgantt.2.nupkg`) and its gate
+once it has moved 3 px instead of on the press. All 116 Veto Gantt specs pass with it (four are
+new); this POC runs on that build (`local-packages/Veto.Gantt.1.0.8-xafgantt.3.nupkg`) and its gate
 asserts the click. Offered upstream as https://github.com/G-HK/Veto/pull/28 (2026-11-18, the same
-change on a branch from `dev`). The original finding: With `Editable="true"`, clicking a leaf
+changes on a branch from `dev`, together with V8). The original finding: With `Editable="true"`, clicking a leaf
 bar leaves the selection where it was; clicking a summary bar, or Enter on a focused bar, selects.
 Reproduced in the gate and on Veto's own demo site (`/docs/components/gantt`, the editable chart),
 so it is not an XAF interaction. Likely cause, read in `veto-gantt-drag.js`: pointer-down captures
@@ -59,6 +59,13 @@ Not used here; do not set it in an intranet app without changing that URL.
 
 **V7. Upstream `dev` now targets net11.0.** A fork used as a project reference from a net10 XAF app
 must branch from the 1.0.7 release commit `2744786487a400601583492610c1211993f9eefb`.
+
+**V8. A click on a draggable bar collapses it to the width of its label.** Bug in 1.0.7, **fixed in
+the fork** (second commit on the same branch, in the same upstream PR). Measured on Veto's demo
+site: 360 px wide before the click, 52 px after, until something re-renders the bar with other
+dates. Cause: the release empties the bar's inline width to undo the drag preview, but that width
+is the component's own. Found when the first README screenshot showed a selected bar a day wide;
+the gate now checks that a clicked bar keeps its width.
 
 Read in the source, not reproduced:
 
