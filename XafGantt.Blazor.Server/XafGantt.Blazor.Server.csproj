@@ -24,7 +24,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="5.0.0">
       <ExcludeAssets>contentFiles</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="Veto.Gantt" Version="1.0.7" />
+    <PackageReference Include="Veto.Gantt" Version="1.0.8-xafgantt.2" />
     
   </ItemGroup>
   <ItemGroup>

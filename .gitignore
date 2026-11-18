@@ -485,3 +485,6 @@ output/
 *.user
 .vs/
 .superpowers/
+
+# The Veto.Gantt build from our fork is part of the repo (see CLAUDE.md).
+!local-packages/*.nupkg

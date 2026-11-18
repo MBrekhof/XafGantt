@@ -166,17 +166,17 @@ try
     await PollAsync(async () => await SelectedRow("Lab instrument rollout").CountAsync() == 1 && !await delete.IsDisabledAsync(),
         "mouse click on a summary bar selects it and enables XAF Delete");
 
-    // Veto finding 1 (docs/veto-findings.md): a mouse click on a DRAGGABLE bar does not select it.
-    // Reported, not asserted, so this line flips by itself once Veto is fixed.
+    // Veto finding V1: with Veto.Gantt 1.0.7 this click did nothing. Fixed in the fork build.
+    var (tStart, tEnd) = Dates("Training");
     await Bar(page, "Training").ClickAsync();
-    await page.WaitForTimeoutAsync(1200);
-    Console.WriteLine(await SelectedRow("Training").CountAsync() == 1
-        ? "    [info] mouse click on a draggable bar selects it (Veto finding 1 is fixed)"
-        : "    [known] mouse click on a draggable bar does NOT select it (Veto finding 1)");
+    await PollAsync(async () => await SelectedRow("Training").CountAsync() == 1, "mouse click on a draggable bar selects it");
+    Assert(Dates("Training") == (tStart, tEnd), "the click did not move the task");
 
-    await Bar(page, "Training").FocusAsync();
+    await Bar(page, "Validation").FocusAsync();
     await page.Keyboard.PressAsync("Enter");
-    await PollAsync(async () => await SelectedRow("Training").CountAsync() == 1, "Enter on a focused draggable bar selects it");
+    await PollAsync(async () => await SelectedRow("Validation").CountAsync() == 1, "Enter on a focused draggable bar selects it");
+    await Bar(page, "Training").ClickAsync();
+    await PollAsync(async () => await SelectedRow("Training").CountAsync() == 1, "clicking another bar moves the selection");
     await delete.ClickAsync();
     await page.GetByRole(AriaRole.Button, new() { Name = "Yes", Exact = true }).ClickAsync();
     await Poll(() => SqlScalar("SELECT COUNT(*) FROM ProjectTasks WHERE Name = 'Training' AND GCRecord = 0") == "0",

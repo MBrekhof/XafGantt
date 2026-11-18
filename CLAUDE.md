@@ -18,8 +18,14 @@ Login `Admin` or `Viewer` (read-only), empty password, DEBUG builds only.
 
 - EF Core only, never XPO. All DevExpress packages on 26.1.
 - `XafGantt.Module` must not reference Veto: the editor works against `IGanttTask`.
-- `Veto.Gantt` stays pinned to 1.0.7 from nuget.org until a fork is decided. Upstream `dev` is
-  net11.0; a fork must branch from the 1.0.7 release commit (see findings V7).
+- `Veto.Gantt` is `1.0.8-xafgantt.2`, built from the fork `C:\Projects\Veto`
+  (github.com/MBrekhof/Veto, branch `fix/click-selects-draggable-bar`, based on the 1.0.7 release
+  commit because upstream `dev` is net11.0) and committed in `local-packages/`; `nuget.config` adds
+  that folder as a source. To rebuild it after a change in the fork: set `<Version>` in
+  `src/Components/Veto.Gantt/Veto.Gantt.csproj` to the next `1.0.8-xafgantt.N`, run
+  `dotnet pack src/Components/Veto.Gantt/Veto.Gantt.csproj -c Release -o C:\Projects\XAFGantt\local-packages`,
+  revert the version change in the fork, and bump the reference in `XafGantt.Blazor.Server.csproj`.
+- Changes to Veto itself are made in the fork's own checkout, not from here.
 - Verify DevExpress behaviour in dxdocs or the installed source, and Veto behaviour in its source;
   never from memory.
 - The wrapper must call `ResetAsync()` after every `OnItemChanged` (findings V2). Do not remove it.

@@ -2,21 +2,20 @@
 
 ## State
 
-POC built and working: Veto.Gantt 1.0.7 as an XAF 26.1 Blazor list editor. The E2E gate
-(`dotnet run --project XafGantt.E2ETests`) passes with 30 checks. Nothing is committed yet; the
-repo is local only (`git init`, no remote).
+POC built and working: Veto.Gantt as an XAF 26.1 Blazor list editor. The E2E gate
+(`dotnet run --project XafGantt.E2ETests`) passes with 33 checks. Repo: github.com/MBrekhof/XafGantt
+(private). Open work is on the ContextBoard project XafGantt.
 
-Plan and code were each reviewed by an in-session reviewer (Gemini and Codex out of quota); all
-findings from both passes are applied. Results: `docs/veto-findings.md`.
+Veto is forked to github.com/MBrekhof/Veto, cloned at `C:\Projects\Veto`. The click-selection fix
+(VETO-001) lives on `fix/click-selects-draggable-bar` (based on the 1.0.7 release) and this POC runs
+on a package built from it (`local-packages/`, see CLAUDE.md for the rebuild steps).
 
-## Waiting on the owner
+Plan, POC code and the Veto fix were each reviewed by an in-session reviewer (Gemini and Codex were
+out of quota); all findings are applied. Results: `docs/veto-findings.md`.
 
-1. Commit the initial state, and whether to create a GitHub repo (private) for it.
-2. Fork G-HK/Veto to fix V1 (mouse click does not select a draggable bar) and possibly V2
-   (host-controlled changes). Fork from the 1.0.7 release commit, not `dev` (net11).
-3. A ContextBoard project for XafGantt, so the findings become cards.
+## Next
 
-## Not covered yet
-
-See "Not covered" in `docs/veto-findings.md`: Dutch culture, timed tasks, nested list view, classic
-themes, tooltips and export menu by eye, Detail View edit and return, concurrent delete.
+- When upstream releases a Veto.Gantt that contains the click fix: go back to the nuget.org package
+  and delete `local-packages/` and `nuget.config`.
+- The Backlog cards: VETO-002..006 (upstream candidates, most unverified) and GANTT-001..007
+  (what the POC did not cover).

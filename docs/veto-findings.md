@@ -8,7 +8,8 @@ in-session reviewer (Gemini and Codex were out of quota).
 
 It works. The chart renders inside the XAF shell in the Fluent light and dark themes, drag and
 keyboard rescheduling commit through the ObjectSpace, validation and security are respected, and
-500 tasks render in under a second. Two Veto issues need a workaround or a fix (V1, V2).
+500 tasks render in under a second. Two Veto issues needed work: V1 is fixed in our fork, V2 has a
+workaround in the wrapper.
 
 ## Answers to the POC questions
 
@@ -25,7 +26,11 @@ keyboard rescheduling commit through the ObjectSpace, validation and security ar
 
 ## Veto issues
 
-**V1. A mouse click does not select a draggable bar.** Bug. With `Editable="true"`, clicking a leaf
+**V1. A mouse click does not select a draggable bar.** Bug in 1.0.7, **fixed in the fork**
+(`github.com/MBrekhof/Veto`, branch `fix/click-selects-draggable-bar`): the pointer is now captured
+once it has moved 3 px instead of on the press. Veto's 114 Gantt specs pass with it, plus two new
+ones; this POC runs on that build (`local-packages/Veto.Gantt.1.0.8-xafgantt.2.nupkg`) and its gate
+asserts the click. Not offered upstream yet. The original finding: With `Editable="true"`, clicking a leaf
 bar leaves the selection where it was; clicking a summary bar, or Enter on a focused bar, selects.
 Reproduced in the gate and on Veto's own demo site (`/docs/components/gantt`, the editable chart),
 so it is not an XAF interaction. Likely cause, read in `veto-gantt-drag.js`: pointer-down captures
