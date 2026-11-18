@@ -62,5 +62,5 @@ the app. Exit code 0 means passed. Screenshots land in `XafGantt.E2ETests/bin/De
 ## License
 
 [MIT](LICENSE). Veto.Gantt is MIT-licensed by its author (G-HK); its licence text is inside the package in
-`local-packages/`. Building and running the app requires a DevExpress licence; no DevExpress code is
-in this repository.
+`local-packages/`. The project skeleton comes from the DevExpress XAF template, and building and running
+the app requires a DevExpress licence.
