@@ -30,7 +30,8 @@ workaround in the wrapper.
 (`github.com/MBrekhof/Veto`, branch `fix/click-selects-draggable-bar`): the pointer is now captured
 once it has moved 3 px instead of on the press. Veto's 114 Gantt specs pass with it, plus two new
 ones; this POC runs on that build (`local-packages/Veto.Gantt.1.0.8-xafgantt.2.nupkg`) and its gate
-asserts the click. Not offered upstream yet. The original finding: With `Editable="true"`, clicking a leaf
+asserts the click. Offered upstream as https://github.com/G-HK/Veto/pull/28 (2026-11-18, the same
+change on a branch from `dev`). The original finding: With `Editable="true"`, clicking a leaf
 bar leaves the selection where it was; clicking a summary bar, or Enter on a focused bar, selects.
 Reproduced in the gate and on Veto's own demo site (`/docs/components/gantt`, the editable chart),
 so it is not an XAF interaction. Likely cause, read in `veto-gantt-drag.js`: pointer-down captures

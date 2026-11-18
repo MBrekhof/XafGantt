@@ -15,6 +15,7 @@ out of quota); all findings are applied. Results: `docs/veto-findings.md`.
 
 ## Next
 
+- Upstream PR for the click fix: https://github.com/G-HK/Veto/pull/28 (open).
 - When upstream releases a Veto.Gantt that contains the click fix: go back to the nuget.org package
   and delete `local-packages/` and `nuget.config`.
 - The Backlog cards: VETO-002..006 (upstream candidates, most unverified) and GANTT-001..007
